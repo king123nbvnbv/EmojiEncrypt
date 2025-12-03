@@ -115,9 +115,25 @@
             // סימן לרווח
             ' ' 
         ];
+		
+		// Function to format ALL_EMOJIS to keep only the first character of each multi-character emoji
+		function formatEmojis() {
+			for (let i = 0; i < ALL_EMOJIS.length; i++) {
+				const emoji = ALL_EMOJIS[i];
+				
+				// Check if the emoji is made of multiple characters
+				if (emoji.length > 1) {
+					// Replace the emoji with its first character (first code point)
+					ALL_EMOJIS[i] = emoji[0];  // Only keep the first character
+				}
+			}
+		}
 
         // 3. הגדרת המפות
         function generateCypherMaps() {
+		    // First, format the emojis to ensure they only have the first character
+			formatEmojis();
+	
             // אם המפות כבר נוצרו, אין צורך ליצור שוב
             if (Object.keys(ENCRYPT_MAP).length > 0) return; 
 
