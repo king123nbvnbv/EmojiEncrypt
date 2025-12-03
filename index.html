@@ -94,20 +94,21 @@
         // רשימת כל התווים שצריך לכסות
         const ALL_CHARS = "אבגדהוזחטיכלמנסעפצקרשתםןףךץabcdefghijklmnopqrstuvwxyz0123456789.,!?'-/()&@#$ \n";
 
+		
         // 2. רשימת האימוג'י המורחבת (כדי לכסות את כל התווים ב-1:1)
         const ALL_EMOJIS = [
             // חתולים (לעברית)
-            '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾', '🐈', '🦁', '🐯', '🐆', '🐅', '🐾', '🐱', '🐑', '🪿‍', '🧡', '🤎', '🤍', '🖤', '💛',
+            '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾', '🐈', '🦁', '🐯', '🐆', '🐅', '🐾', '🐱', '🐑', '🪿', '🧡', '🤎', '🤍', '🖤', '💛',
             // כלבים וחיות אחרות
             '🐶', '🦊', '🐻', '🐼', '🐨', '🐷', '🐸', '🐙', '🦀', '🦐', '🐠', '🐬', '🐳', '🦆',
             // אוכל ושתיה
             '🍕', '🍔', '🍟', '🍦', '🍩', '🍪', '☕', '🍵', '🥂', '🍾',
             // כלי רכב ומקומות
-            '🚗', '✈️', '⛵', '🚀', '🏟️', '🏫', '🏦', '🏥', '🏭', '🏰',
+            '🚗', '✈', '⛵', '🚀', '🏟', '🏫', '🏦', '🏥', '🏭', '🏰',
             // חפצים וסמלים
-            '💡', '💰', '🔑', '🔨', '☎️', '⌚', '📸', '📽️', '💻', '🖥️', '💿', '💾', '📖', '📝', '✉️',
+            '💡', '💰', '🔑', '🔨', '☎', '⌚', '📸', '📽', '💻', '🖥', '💿', '💾', '📖', '📝', '✉',
             // פרחים וטבע
-            '🌷', '🌹', '🌻', '🌞', '🌈', '🌧️', '⛈️', '🌊',
+            '🌷', '🌹', '🌻', '🌞', '🌈', '🌧', '⛈️', '🌊',
             // צורות וצבעים
             '🔴', '🟠', '🟡', '🟢', '🔵', '🟣', '⚫', '⚪', '⭐', '✨', '⚡', '🔥', '💧', '🎉',
             // סימונים ורגשות
@@ -115,26 +116,9 @@
             // סימן לרווח
             ' ' 
         ];
-		
-		// Function to format ALL_EMOJIS to keep only the first character of each multi-character emoji
-		function formatEmojis() {
-			for (let i = 0; i < ALL_EMOJIS.length; i++) {
-				const emoji = ALL_EMOJIS[i];
-				
-				// Get the first code point of the emoji (even if it's a multi-character emoji)
-				const firstCharCode = emoji.codePointAt(0);  // Get the first code point
-				const firstChar = String.fromCodePoint(firstCharCode);  // Convert the code point back to a string
-				
-				// Replace the emoji with the first character
-				ALL_EMOJIS[i] = firstChar;
-			}
-		}
 
         // 3. הגדרת המפות
         function generateCypherMaps() {
-		    // First, format the emojis to ensure they only have the first character
-			formatEmojis();
-	
             // אם המפות כבר נוצרו, אין צורך ליצור שוב
             if (Object.keys(ENCRYPT_MAP).length > 0) return; 
 
