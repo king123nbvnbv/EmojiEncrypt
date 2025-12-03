@@ -164,34 +164,33 @@
 			let decryptedText = "";
 			let i = 0;
 
-			// Loop through each character in the encrypted text
+			// Use a while loop to properly handle multi-character Unicode characters (surrogate pairs)
 			while (i < text.length) {
-				// Get the full emoji/character sequence at the current position
-				const char = text.slice(i, i + 3); // Check for potential two-character emojis
+				// Get the full Unicode character (accounting for surrogate pairs)
+				const char = text.codePointAt(i);
+				const charStr = String.fromCodePoint(char); // Convert it back to string
 
-				// Check if the current substring exists in DECRYPT_MAP (for composite emojis)
-				if (DECRYPT_MAP[char]) {
-					decryptedText += DECRYPT_MAP[char];
-					i += char.length; // Move by the length of the composite emoji
+				// Check if the character exists in the DECRYPT_MAP
+				if (DECRYPT_MAP[charStr]) {
+					const originalChar = DECRYPT_MAP[charStr];
+
+					// Handle final letters (if the character is a final letter, return the regular one)
+					decryptedText += originalChar;
 				} 
-				// If it's a single emoji character, decrypt it as well
-				else if (DECRYPT_MAP[text[i]]) {
-					decryptedText += DECRYPT_MAP[text[i]];
-					i++;
-				} 
-				// If character is '❌', treat it as an unknown character
-				else if (text[i] === '❌') {
+				// If the character is '❌', it's an unknown character that was encrypted as such
+				else if (charStr === '❌') {
 					decryptedText += '??'; 
-					i++;
 				} 
-				// Any character that doesn't match an emoji in DECRYPT_MAP can be added as is
+				// If it's an emoji or character that doesn't exist in the map, we can keep it or handle it as needed
 				else {
-					decryptedText += text[i];
-					i++;
+					decryptedText += charStr; 
 				}
+
+				// Move to the next character, adjusting for multi-byte characters
+				i += charStr.length;
 			}
 
-			// Display the decrypted text
+			// Display the decrypted text in the result section
 			document.getElementById("result").innerText = decryptedText;
 		}
 
