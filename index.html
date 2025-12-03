@@ -121,11 +121,12 @@
 			for (let i = 0; i < ALL_EMOJIS.length; i++) {
 				const emoji = ALL_EMOJIS[i];
 				
-				// Check if the emoji is made of multiple characters
-				if (emoji.length > 1) {
-					// Replace the emoji with its first character (first code point)
-					ALL_EMOJIS[i] = emoji[0];  // Only keep the first character
-				}
+				// Get the first code point of the emoji (even if it's a multi-character emoji)
+				const firstCharCode = emoji.codePointAt(0);  // Get the first code point
+				const firstChar = String.fromCodePoint(firstCharCode);  // Convert the code point back to a string
+				
+				// Replace the emoji with the first character
+				ALL_EMOJIS[i] = firstChar;
 			}
 		}
 
